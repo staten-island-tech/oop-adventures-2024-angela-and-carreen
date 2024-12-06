@@ -21,7 +21,7 @@ class Monster:
     
     def die(self):
         if self.hp<=0:
-            print(f"{self.name}is now dead")
+            print(f"{self.name} is now dead")
             self.drop_item()
     
     def alive(self):
@@ -30,7 +30,7 @@ class Monster:
     
     def drop_item(self):
         if self.drops:
-            print (f"{self.name}drops these")
+            print (f"{self.name} drops these")
             num_drops = random.randint(1, len(self.drops))
             for _ in range(num_drops):
                 dropped_item = random.choice(list(self.drops))
@@ -39,11 +39,8 @@ class Monster:
             print("no drops availble")
 
 
-    
-    
-    
 
-werewolf = Monster("Werewolf", 100, 50, {"werewolf fur", "werewolf claws", "gold coins"})
+werewolf = Monster("Werewolf", 100, 50, {"werewolf fur", "werewolf claws", "2 gold coins"})
 goblin = Monster("Goblin", 50, 20, {"goblin skin", "wooden shield", "gold coin"})
 skeleton = Monster("skeleton", 30, 10, {"bones", "rusty sword", "gold coin"})
-
+dragon = Monster("Dragon", 150, 80, {"dragon scales", "dragon tooth", "dragon heart", '5 gold coins'})
