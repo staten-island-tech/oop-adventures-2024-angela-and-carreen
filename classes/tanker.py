@@ -7,4 +7,4 @@ class tanker:
 
 
 
-Archer = archer("user", 100, 5, 25)
+Archer = archer("user", 100, 5, 50)
