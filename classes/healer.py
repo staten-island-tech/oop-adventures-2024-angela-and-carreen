@@ -1,26 +1,25 @@
-class healer:
-    def __init__(self, name, health, mana, healing, defense):
+class Healer:
+    def __init__(self, name, health, mana, defense):
         self.name = name
         self.health = health
         self.defense = defense
         self.mana = mana
-        self.healing = healing
         self.healing_type = {
-            1: {"name": "Standard", "heals for": 10, "mana cost": 0},
-            2: {"name": "Better healing", "heals for": 20, "mana cost": 10}}
+            1: {"name": "Standard", "heals_for": 10, "mana_cost": 10},
+            2: {"name": "Better Healing", "heals_for": 20, "mana_cost": 20}}
 
-    def healing(self, target, healing_choice):
+    def heal(self, target, healing_choice):
         if healing_choice not in self.healing_type:
-        print(f"{healing_choice} is not a valid arrow choice")
-        return
+            print(f"{healing_choice} is not a valid healing choice.")
+            return
 
-        if self.healing:
-            if arrow["mana_cost"] > 0:
-                if self.mana >= arrow["mana_cost"]:
-                    self.mana -= arrow["mana_cost"]
-                    print(f"{self.name} used {healing['name']} arrow consuming {arrow['mana_cost']} mana.")
-                else:
-                    print(f"{self.name} doesn't have enough mana for {arrow['name']}!")
+        healing = self.healing_type[healing_choice]
+        if self.mana >= healing["mana_cost"]:
+            self.mana -= healing["mana_cost"]
+            target.health += healing["heals_for"]
+            print(f"{self.name} used {healing['name']} to heal {target.name} for {healing['heals_for']} health, consuming {healing['mana_cost']} mana.")
+        else:
+            print(f"{self.name} doesn't have enough mana to use {healing['name']}!")
 
     def take_damage(self, damage):
         reduced_damage = max(damage - self.defense, 0)

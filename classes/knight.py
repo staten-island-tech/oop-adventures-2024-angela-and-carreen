@@ -1,10 +1,11 @@
 class knight:
-    def __init__ (self, name, hp, attack, defense)
+    def __init__ (self, name, health, mana, defense):
     self.name = name
     self.hp = hp
-    self.attack = attack
     self.defense = defense
-
-
-
-Knight = knight("user", 100, 10, 10)
+    self.attack = attack
+    self.attack_type = {
+        1: {"name": "Slash", "damage": 10, "mana cost": 0},
+        2: {"name": "Power Slash", "damage": 20, "mana cost": 10}
+        3: {"name": "Power Slash", "damage": 20, "mana cost": 10}}
+    
