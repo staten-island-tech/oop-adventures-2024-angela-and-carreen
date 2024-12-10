@@ -36,5 +36,6 @@ class Items:
         return f"{self.name} has been fixed. durability has become {self.durability}"
 
 
-lamp = Item("Lamp", 5, 100, "light")
-map
+lamp = Items("Lamp", 5, 100, "light")
+Map = Items("Map", 3, 50, "N/A")
+
