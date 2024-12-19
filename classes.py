@@ -12,10 +12,9 @@ class classes:
         else:
             print(f"{self.name} takes {reduced_damage} damage, {self.health} health remaining.")
 
-
 class Archer:
     def __init__(self, name, health, mana, arrows, defense, arrows):
-        super().__init__(name, health, mana, arrows, defense)
+        super().__init__(name, health, mana, defense)
         self.arrows=arrows
         self.arrow_types = {
             1: {"name": "Standard", "damage": 10, "mana cost": 0},
@@ -53,10 +52,9 @@ class Archer:
     def __str__(self):
         return f"Archer {self.name}: Health = {self.health}, Mana = {self.mana}, Arrows = {self.arrows}, Defense = {self.defense}"
 
-
 class Knight:
-    def __init__(self, name, health, mana, arrows, defense, attacks):
-        super().__init__(name, health, mana, arrows, defense)
+    def __init__(self, name, health, mana, defense, attacks):
+        super().__init__(name, health, mana, defense)
         self.attacks = attacks
         self.attack_type = {
             1: {"name": "Slash", "damage": 10, "mana_cost": 0},
@@ -85,10 +83,9 @@ class Knight:
     def __str__(self):
         return f"Knight {self.name}: Health = {self.health}, Mana = {self.mana}, Defense = {self.defense}, Attacks = {self.attacks}"
 
-
 class mage:
     def __init__(self, name, health, mana, defense, attacks):
-        super().__init__(name, health, mana, defense, attacks)
+        super().__init__(name, health, mana, defense)
         self.attacks = attacks
         self.attack_type = {
             1: {"name": "fireball", "damage": 10, "mana cost": 10, "effect": "burn"},
@@ -117,3 +114,23 @@ class mage:
                         print(f"{self.name} doesn't have enough mana for {attack['name']}!")
         else:
             print(f"{self.name} can't attack any more")
+
+class Healer:
+    def __init__(self, name, health, mana, defense):
+        super().__init__(name, health, mana, defense)
+        self.healing_type = {
+            1: {"name": "Standard", "heals_for": 10, "mana_cost": 10},
+            2: {"name": "Better Healing", "heals_for": 20, "mana_cost": 20}}
+    def heal(self, target, healing_choice):
+        if healing_choice not in self.healing_type:
+            print(f"{healing_choice} is not a valid healing choice.")
+            return
+        healing = self.healing_type[healing_choice]
+        if self.mana >= healing["mana_cost"]:
+            self.mana -= healing["mana_cost"]
+            target.health += healing["heals_for"]
+            print(f"{self.name} used {healing['name']} to heal {target.name} for {healing['heals_for']} health, consuming {healing['mana_cost']} mana.")
+        else:
+            print(f"{self.name} doesn't have enough mana to use {healing['name']}!")
+    def __str__(self):
+        return f"Healer {self.name}: Health = {self.health}, Mana = {self.mana}, Defense = {self.defense}"

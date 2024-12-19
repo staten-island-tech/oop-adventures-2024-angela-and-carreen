@@ -96,17 +96,3 @@ class Innkeeper(NPC):
                 break
             else:
                 print("Please respond with 'yes' or 'no'.")
-
-
-class Player:
-    def __init__(self, name, currency):
-        self.name = name
-        self.currency = currency
-
-player = Player("Arthur", 50)
-store_clerk = StoreClerk("Mia", 50, [("Sword", 15), ("Potion", 10), ("Shield", 10)])
-trader= Trader("John", 50, [("Map", 3), ("Healing potion", 10), ("lamp", 5)])
-innkeeper = Innkeeper("Alya", 0, 15)
-store_clerk.interact(player)
-trader.interact(player)
-innkeeper.interact(player)
