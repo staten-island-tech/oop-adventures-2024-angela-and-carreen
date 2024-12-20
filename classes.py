@@ -1,20 +1,12 @@
 class classes:
-    def __init__ (self, name, health, mana, defense,):
+    def __init__ (self, name, mana, defense,):
         self.name = name
-        self.health = health
         self.mana = mana
         self.defense = defense
-    def take_damage(self, damage):
-        reduced_damage = max(damage - self.defense, 0)
-        self.health -= reduced_damage
-        if self.health <= 0:
-            print(f"{self.name} has been defeated!")
-        else:
-            print(f"{self.name} takes {reduced_damage} damage, {self.health} health remaining.")
 
 class Archer:
-    def __init__(self, name, health, mana, arrows, defense, arrows):
-        super().__init__(name, health, mana, defense)
+    def __init__(self, name, mana, arrows, defense, arrows):
+        super().__init__(name, mana, defense)
         self.arrows=arrows
         self.arrow_types = {
             1: {"name": "Standard", "damage": 10, "mana cost": 0},
@@ -50,11 +42,11 @@ class Archer:
         self.arrows += number_of_arrows
         print(f"{self.name} reloads {number_of_arrows} arrows.")
     def __str__(self):
-        return f"Archer {self.name}: Health = {self.health}, Mana = {self.mana}, Arrows = {self.arrows}, Defense = {self.defense}"
+        return f"Archer {self.name}: Mana = {self.mana}, Arrows = {self.arrows}, Defense = {self.defense}"
 
 class Knight:
-    def __init__(self, name, health, mana, defense, attacks):
-        super().__init__(name, health, mana, defense)
+    def __init__(self, name, mana, defense, attacks):
+        super().__init__(name, mana, defense)
         self.attacks = attacks
         self.attack_type = {
             1: {"name": "Slash", "damage": 10, "mana_cost": 0},
@@ -81,11 +73,11 @@ class Knight:
         target.take_damage(damage)
         self.attacks -= 1
     def __str__(self):
-        return f"Knight {self.name}: Health = {self.health}, Mana = {self.mana}, Defense = {self.defense}, Attacks = {self.attacks}"
+        return f"Knight {self.name}: Mana = {self.mana}, Defense = {self.defense}, Attacks = {self.attacks}"
 
 class mage:
-    def __init__(self, name, health, mana, defense, attacks):
-        super().__init__(name, health, mana, defense)
+    def __init__(self, name, mana, defense, attacks):
+        super().__init__(name, mana, defense)
         self.attacks = attacks
         self.attack_type = {
             1: {"name": "fireball", "damage": 10, "mana cost": 10, "effect": "burn"},
@@ -114,10 +106,12 @@ class mage:
                         print(f"{self.name} doesn't have enough mana for {attack['name']}!")
         else:
             print(f"{self.name} can't attack any more")
+    def __str__(self):
+        return f"mage {self.name}: Mana = {self.mana}, Defense = {self.defense}, Attacks = {self.attacks}"
 
 class Healer:
-    def __init__(self, name, health, mana, defense):
-        super().__init__(name, health, mana, defense)
+    def __init__(self, name, mana, defense):
+        super().__init__(name, mana, defense)
         self.healing_type = {
             1: {"name": "Standard", "heals_for": 10, "mana_cost": 10},
             2: {"name": "Better Healing", "heals_for": 20, "mana_cost": 20}}
@@ -133,4 +127,4 @@ class Healer:
         else:
             print(f"{self.name} doesn't have enough mana to use {healing['name']}!")
     def __str__(self):
-        return f"Healer {self.name}: Health = {self.health}, Mana = {self.mana}, Defense = {self.defense}"
+        return f"Healer {self.name}: Mana = {self.mana}, Defense = {self.defense}"
