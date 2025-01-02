@@ -1,4 +1,5 @@
 import json
+import classes
 import os
 
 class main_charater:
@@ -10,11 +11,21 @@ class main_charater:
     def user_input():
         user_name = input("Enter your character's name: ")
         return main_charater(user_name)
-name = main_charater.user_input()
+    def choosing_charater():
+        charater_list = ("Archer", "Knight", "mage", "Healer")
+        for idx, (charater) in enumerate(charater_list):
+            print(f"{idx}.{charater}")
+        try:
+            choice = int(input("\n Enter the number corresponding to the class to choose it: "))
+            
+        except ValueError:
+            print("Please enter a valid number.")
+
+char = main_charater.user_input()
 
 with open("./saves.json", "r") as f:
     data = json.load(f)
-    data.append(name.__dict__)
+    data.append(char.__dict__)
 new_file = "updated.json"
 with open(new_file, "w") as f:
     json_string = json.dumps(data)
