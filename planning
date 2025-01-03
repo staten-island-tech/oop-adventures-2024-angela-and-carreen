@@ -1,12 +1,12 @@
 items: lamp, map, money, potions, armor, paper, shoes, gloves, 
-    weapons: bow, arrow, sword, staff, knife, sheild, glock(legendary), 
+    weapons: bow, arrow, sword, staff, knife, sheild, 
     potion: healiing, poison, sleeping, laxitive, night vision, invisibility, invincibility, strength, defense, 
 
 place: store, church, inn, forest, field, house, cave, market, stable, town, kingdom, 
 
-class: mage, archer, knight, tanker, healer, necromancer, theif, witch
+class: mage, archer, knight, healer,
 
-NPCs: store clerk, traders, priest, inn keeper, farmer, king, prince, princess, queen, general/comander, peasent, blacksmith, stable boy, 
+NPCs: store clerk, traders, priest, inn keeper, farmer, 
 
 monster: goblin, dragon, werewolf, , skeleton, 
     drops : dragon skin, goblin hide, potion, werewolf fur, seleton bones, werewolf claw, goblin sword, dragpn scale, 

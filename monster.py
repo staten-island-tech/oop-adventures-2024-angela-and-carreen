@@ -40,7 +40,8 @@ class Monster:
 
 
 
-werewolf = Monster("Werewolf", 100, 50, {"werewolf fur", "werewolf claws", "2 gold coins"})
-goblin = Monster("Goblin", 50, 20, {"goblin skin", "wooden shield", "gold coin"})
-skeleton = Monster("skeleton", 30, 10, {"bones", "rusty sword", "gold coin"})
-dragon = Monster("Dragon", 150, 80, {"dragon scales", "dragon tooth", "dragon heart", '5 gold coins'})
+werewolf = Monster("Werewolf", 100, 50, {"werewolf fur", "werewolf claws", "55 gold coins"})
+goblin = Monster("Goblin", 50, 20, {"goblin skin", "wooden shield", "5 gold coins"})
+skeleton = Monster("skeleton", 30, 10, {"bones", "rusty sword", "3 gold coins"})
+dragon = Monster("Dragon", 150, 80, {"dragon scales", "dragon tooth", "dragon heart", '100 gold coins'})
+
