@@ -1,17 +1,18 @@
-class classes:
-    def __init__ (self, name, mana, defense,):
+
+class Character:
+    def __init__(self, name, mana, defense):
         self.name = name
         self.mana = mana
         self.defense = defense
 
-class Archer:
-    def __init__(self, name, mana, arrows, defense, arrows):
+class Archer(Character):
+    def __init__(self, name, mana, arrows, defense):
         super().__init__(name, mana, defense)
-        self.arrows=arrows
+        self.arrows = arrows
         self.arrow_types = {
             1: {"name": "Standard", "damage": 10, "mana cost": 0},
             2: {"name": "Fire", "damage": 15, "mana cost": 7, "effect": "burn"},
-            3: {"name": "Poison", "damage": 12, "mana cost": 5,"effect": "poison"},}
+            3: {"name": "Poison", "damage": 12, "mana cost": 5, "effect": "poison"},}
     def shoot_arrow(self, target, arrow_choice):
         if arrow_choice not in self.arrow_types:
             print(f"{arrow_choice} is not a valid arrow choice")
@@ -44,15 +45,14 @@ class Archer:
     def __str__(self):
         return f"Archer {self.name}: Mana = {self.mana}, Arrows = {self.arrows}, Defense = {self.defense}"
 
-class Knight:
+class Knight(Character):
     def __init__(self, name, mana, defense, attacks):
         super().__init__(name, mana, defense)
         self.attacks = attacks
         self.attack_type = {
             1: {"name": "Slash", "damage": 10, "mana_cost": 0},
             2: {"name": "Charge Attack", "damage": 15, "mana_cost": 10},
-            3: {"name": "Power Slash", "damage": 30, "mana_cost": 15}}
-
+            3: {"name": "Power Slash", "damage": 30, "mana_cost": 15},}
     def attacking(self, target, attack_choice):
         if attack_choice not in self.attack_type:
             print(f"{attack_choice} is not a valid attack choice.")
@@ -75,13 +75,13 @@ class Knight:
     def __str__(self):
         return f"Knight {self.name}: Mana = {self.mana}, Defense = {self.defense}, Attacks = {self.attacks}"
 
-class mage:
+class Mage(Character):
     def __init__(self, name, mana, defense, attacks):
         super().__init__(name, mana, defense)
         self.attacks = attacks
         self.attack_type = {
-            1: {"name": "fireball", "damage": 10, "mana cost": 10, "effect": "burn"},
-            2: {"name": "frostbolt", "damage": 10, "mana cost": 10, "effect": "forst"}}
+            1: {"name": "Fireball", "damage": 10, "mana cost": 10, "effect": "burn"},
+            2: {"name": "Frostbolt", "damage": 10, "mana cost": 10, "effect": "frost"}}
     def attacking(self, target, attack_choice):
         if attack_choice not in self.attack_type:
             print(f"{attack_choice} is not a valid attack choice")
@@ -109,7 +109,7 @@ class mage:
     def __str__(self):
         return f"mage {self.name}: Mana = {self.mana}, Defense = {self.defense}, Attacks = {self.attacks}"
 
-class Healer:
+class Healer(Character):
     def __init__(self, name, mana, defense):
         super().__init__(name, mana, defense)
         self.healing_type = {
