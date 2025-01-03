@@ -1,15 +1,15 @@
-
 import json
 from classes import Archer, Knight, Mage, Healer
 import os
-
 class MainCharacter:
-    def __init__(self, name, character_class, health=100, currency=25):
+    def __init__(self, name, character_class, health, currency):
         self.name = name
         self.character_class = character_class
         self.health = health
         self.currency = currency
         self.inventory = []
+    health=100
+    currency=25
     def user_input():
         user_name = input("Enter your character's name: ")
         return user_name
@@ -42,9 +42,10 @@ class MainCharacter:
             return Healer(name, mana=60, defense=4)
         else:
             raise ValueError("Invalid character class selected.")
+
 user_name = MainCharacter.user_input()
 chosen_class = MainCharacter.choosing_character()
-player_character = MainCharacter.create_character(user_name, chosen_class)
+player_character = MainCharacter.create_character(user_name, chosen_class, health, currency, inventory)
 character_data = {
     "name": player_character.name,
     "class": chosen_class,
