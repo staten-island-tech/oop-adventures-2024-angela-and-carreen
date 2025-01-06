@@ -1,1 +1,50 @@
-[]
+[
+    {
+        "name": "amy",
+        "class": "Mage",
+        "stats": {
+            "name": "amy",
+            "mana": 70,
+            "defense": 3,
+            "attacks": 5,
+            "attack_type": {
+                "1": {
+                    "name": "Fireball",
+                    "damage": 10,
+                    "mana cost": 10,
+                    "effect": "burn"
+                },
+                "2": {
+                    "name": "Frostbolt",
+                    "damage": 10,
+                    "mana cost": 10,
+                    "effect": "frost"
+                }
+            }
+        }
+    },
+    {
+        "name": "amy",
+        "class": "Mage",
+        "stats": {
+            "name": "amy",
+            "mana": 70,
+            "defense": 3,
+            "attacks": 5,
+            "attack_type": {
+                "1": {
+                    "name": "Fireball",
+                    "damage": 10,
+                    "mana cost": 10,
+                    "effect": "burn"
+                },
+                "2": {
+                    "name": "Frostbolt",
+                    "damage": 10,
+                    "mana cost": 10,
+                    "effect": "frost"
+                }
+            }
+        }
+    }
+]
