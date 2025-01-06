@@ -1,4 +1,4 @@
-
+import items
 class NPC:
     def __init__(self, name, currency=50):
         self.name = name
@@ -96,3 +96,16 @@ class Innkeeper(NPC):
                 break
             else:
                 print("Please respond with 'yes' or 'no'.")
+
+""" class Player:
+    def __init__(self, name, currency):
+        self.name = name
+        self.currency = currency
+player = Player("Arthur", 50) """
+
+store_clerk = StoreClerk("Mia", 50, [('lamp', 5), ('Map', 3), ('sword', 15), ('shield', 10), ('bow', 15), ('arrows', 1)])
+trader= Trader("John", 50, [('lamp', 5), ('Map', 3), ('healing_potion', 10), ('exploding_potion', 10), ('invisibility_potion', 10), ('invincibility_potion', 10), ('laxitive', 15)])
+innkeeper = Innkeeper("Alya", 0, 15)
+store_clerk.interact(player)
+trader.interact(player)
+innkeeper.interact(player)
