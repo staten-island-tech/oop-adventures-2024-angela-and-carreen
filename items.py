@@ -37,8 +37,9 @@ class Items():
         return f"{self.name} has been fixed. durability has become {self.durability}"
 
 class Weapons(Items):
-    def __init__(self, name, price, durability, effect, effect_duration, rarity):
+    def __init__(self, name, price, durability, effect, effect_duration, damage, rarity):
         super().__init__(name, price, durability, effect, effect_duration)
+        self.damage=damage
         self.rarity=rarity
         self.is_active=False
 
@@ -47,14 +48,11 @@ lamp = Items("Lamp", 5, 100, "light", 10)
 Map = Items("Map", 3, 50, "N/A", "N/A")
 Gold_coin = Items("Gold Coin", 1, 1, "N/A", "N/A")
 healing_potion = Items("Healing Potion", 10, 1, "heal", 5)
-exploding_potion = Items("Exploding Potion", 10, 1, "explosion", 5)
+exploding_potion = Items("Exploding Potion", 10, 1, "explosion", 1)
 invisibility_potion = Items("Invisibility Potions", 10, 1, "invisibility", 5)
 invincibility_potion = Items("invincibility Potions", 10, 1, "invincibility", 5)
-laxitive = Items("Laxitive", 15, 1, 'diarrhea', 10)
-shoe = Items("shoes", 5, 100, "N/A", "N/A")
-sword = Weapons("Sword", 15, 50, "Common", "N/A", "N/A")
-shield = Weapons("Shield", 10, 75, "Common", "N/A", "N/A")
-bow = Weapons("Bow", 15, 100, "Common", "N/A", "N/A")
-arrows = Weapons("Arrows", 1, 5, "Common", "N/A", "N/A")
-staff = Weapons("Staff", 10, 100,  "Common", "N/A", "N/A")
-gun = Weapons("Gun", 1000, 10, "Legendary", "Bullet", 1)
+laxitive = Items("Laxitive", 15, 1, 'diarrhea', 5)
+sword = Weapons("Sword", 15, 50, "N/A", "N/A", 15, "Common")
+shield = Weapons("Shield", 10, 75, "N/A", "N/A", 0, "Common")
+bow = Weapons("Bow", 15, 100, "N/A", "N/A", 0, "Common")
+arrows = Weapons("Arrows", 1, 5, "N/A", "N/A", 5, "Common")
