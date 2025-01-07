@@ -37,7 +37,7 @@ class Items():
         return f"{self.name} has been fixed. durability has become {self.durability}"
 
 class Weapons(Items):
-    def __init__(self, name, price, durability, damage, rarity, effect, effect_duration):
+    def __init__(self, name, price, durability, effect, effect_duration, damage, rarity):
         super().__init__(name, price, durability, effect, effect_duration)
         self.damage=damage
         self.rarity=rarity
@@ -52,7 +52,7 @@ exploding_potion = Items("Exploding Potion", 10, 1, "explosion", 1)
 invisibility_potion = Items("Invisibility Potions", 10, 1, "invisibility", 5)
 invincibility_potion = Items("invincibility Potions", 10, 1, "invincibility", 5)
 laxitive = Items("Laxitive", 15, 1, 'diarrhea', 5)
-sword = Weapons("Sword", 15, 50, 15, "Common", "N/A", "N/A")
-shield = Weapons("Shield", 10, 75, 0, "Common", "N/A", "N/A")
-bow = Weapons("Bow", 15, 100, 0, "Common", "N/A", "N/A")
-arrows = Weapons("Arrows", 1, 5, 5, "Common", "N/A", "N/A")
+sword = Weapons("Sword", 15, 50, "N/A", "N/A", 15, "Common")
+shield = Weapons("Shield", 10, 75, "N/A", "N/A", 0, "Common")
+bow = Weapons("Bow", 15, 100, "N/A", "N/A", 0, "Common")
+arrows = Weapons("Arrows", 1, 5, "N/A", "N/A", 5, "Common")

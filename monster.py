@@ -1,5 +1,4 @@
 import random
-from items import Weapons
 class Monster:
     def __init__(self, name, health, attack, drops):
         self.name = name
@@ -11,13 +10,13 @@ class Monster:
         if self.health <= 0:
             self.die()
         else:
-            print(f"{self.name} now has {self.health} health left")
+            print(f"\n{self.name} now has {self.health} health left")
     def die(self):
         print(f"{self.name} is now dead")
         self.drop_item()
     def drop_item(self):
         if self.drops:
-            print(f"{self.name} drops:")
+            print(f"\n{self.name} drops:")
             num_drops = random.randint(1, len(self.drops))
             for _ in range(num_drops):
                 dropped_item = random.choice(list(self.drops))
@@ -47,6 +46,7 @@ skeleton = Monster("Skeleton", 30, 10, {"bones", "rusty sword", "3 gold coins"})
 slime = Monster("Slime", 15, 1, {"1 gold coin"})
 dragon = Monster("Dragon", 150, 80, {"dragon scales", "dragon tooth", "dragon heart", "100 gold coins"})
 
+from items import Weapons
 class Player:
     def __init__(self, name, health, weapon):
         self.name = name
@@ -60,7 +60,7 @@ class Player:
             print(f"{self.name} now has {self.health} health left")
     def attack(self, monster):
         if self.weapon.durability > 0:
-            damage = self.weapon.durability
+            damage = self.weapon.damage
             print(f"{self.name} attacks with {self.weapon.name} for {damage} damage!")
             self.weapon.durability -= 1
             monster.take_damage(damage)
@@ -74,6 +74,6 @@ class Player:
                 print(f"- {item}")
         else:
             print("No items to collect.")
-sword = Weapons("Sword", 15, 50, 15, "Common", "N/A", "N/A")
+sword = Weapons("Sword", 15, 50, "N/A", "N/A", 15, "Common")
 player = Player("Arthur", 100, sword)
 werewolf.interact(player)
