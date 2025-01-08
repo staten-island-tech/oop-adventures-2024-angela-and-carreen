@@ -1,5 +1,10 @@
 from classes import Archer, Knight, Mage, Healer
 import os
+import json
+import monster
+from items import Weapons
+from npcs import StoreClerk, Innkeeper, Trader
+import random
 class MainCharacter:
     def __init__(self, name, character_class, health=100, currency=25):
         self.name = name
@@ -34,10 +39,47 @@ class MainCharacter:
 user_name = MainCharacter.user_input()
 chosen_class = MainCharacter.choosing_character()
 player_character = MainCharacter.create_character (user_name, chosen_class)
-print(f"\nWelcome, {player_character.name}!\nYou have chosen the {chosen_class} class.")
-print(f"Your starting stats are:\nHealth: {player_character.health}\nCurrency: {player_character.currency}\nInventory: {player_character.inventory}\n")
 character_data = {"stats": player_character.__dict__,}
-import json
+def monster_list():
+    Monsters = [Monster("Werewolf", 100, 25, {"werewolf fur", "werewolf claws", "55 gold coins"}),
+    Monster("Goblin", 50, 5, {"goblin skin", "wooden shield", "5 gold coins"}),
+    Monster("Skeleton", 30, 10, {"bones", "rusty sword", "3 gold coins"}),
+    Monster("Slime", 15, 1, {"1 gold coin"}),
+    Monster("Dragon", 150, 80, {"dragon scales", "dragon tooth", "dragon heart", "100 gold coins"})]
+
+def intro():
+    print(f"\nWelcome, {player_character.name}!\nYou have chosen the {chosen_class} class.")
+    print(f"Your starting stats are:\nHealth: {player_character.health}\nCurrency: {player_character.currency}\nInventory: {player_character.inventory}\n")
+    choice = int(input("do you want to go to \n1: forest \n2: village?\n"))
+    if choice == 1:
+        print("you enter the forest...\nyou encounter a slime")
+        if self.weapon.durability > 0:
+            damage = self.weapon.damage
+            print(f"{self.name} attacks with {self.weapon.name} for {damage} damage!")
+            self.weapon.durability -= 1
+            monster.take_damage(damage)
+        else:
+            print(f"{self.weapon.name} is broken and cannot be used!")
+        if drops:
+            self.inventory.extend(drops)
+            print(f"{self.name} collected the following items:")
+            for item in drops:
+                print(f"- {item}")
+        else:
+            print("No items to collect.")
+    elif choice == 2:
+        print("you enter village...\n do you want to go to the inn or the armory")
+        store=int(input("1: armory \n2: inn\n"))
+        if store == 1:
+            store_clerk = StoreClerk("Mia", 50, [('lamp', 5), ('Map', 3), ('sword', 15), ('shield', 10), ('bow', 15), ('arrows', 1)])
+            store_clerk.interact(player_character)
+        elif store==2:
+            innkeeper = Innkeeper("Alya", 0, 15)
+            innkeeper.interact(player_character)
+    else:
+        print('CHOOSE A VALID CHOICE')
+intro()
+
 with open("./saves.json", "r") as f:
     data = json.load(f)
     data.append(character_data)

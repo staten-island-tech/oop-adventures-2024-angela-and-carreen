@@ -24,7 +24,7 @@ class StoreClerk(NPC):
                 self.inventory.remove(self.inventory[item_index - 1])
                 print(f"{self.name}: Thank you for purchasing {item}! You have {player.currency} gold left.")
             else:
-                print(f"{self.name}:Sorry, you don't have enough gold for {item}.")
+                print(f"{self.name}:Sorry, you too broke for {item}.")
         else:
             print("Invalid selection.")
     def interact(self, player):
@@ -33,7 +33,7 @@ class StoreClerk(NPC):
             try:
                 choice = int(input(f"\nEnter the number of the item you want to buy (0 to leave): "))
                 if choice == 0:
-                    print(f"\n{self.name}: Goodbye! Come again soon!")
+                    print(f"\n{self.name}: bye!")
                     break
                 else:
                     self.buy_item(player, choice)
@@ -102,10 +102,7 @@ class Innkeeper(NPC):
         self.name = name
         self.currency = currency
 player = Player("Arthur", 50) """
-
 store_clerk = StoreClerk("Mia", 50, [('lamp', 5), ('Map', 3), ('sword', 15), ('shield', 10), ('bow', 15), ('arrows', 1)])
+
 trader= Trader("John", 50, [('lamp', 5), ('Map', 3), ('healing_potion', 10), ('exploding_potion', 10), ('invisibility_potion', 10), ('invincibility_potion', 10), ('laxitive', 15)])
 innkeeper = Innkeeper("Alya", 0, 15)
-store_clerk.interact(player)
-trader.interact(player)
-innkeeper.interact(player)

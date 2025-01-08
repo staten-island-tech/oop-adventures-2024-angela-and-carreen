@@ -46,8 +46,3 @@ skeleton = Monster("Skeleton", 30, 10, {"bones", "rusty sword", "3 gold coins"})
 slime = Monster("Slime", 15, 1, {"1 gold coin"})
 dragon = Monster("Dragon", 150, 80, {"dragon scales", "dragon tooth", "dragon heart", "100 gold coins"})
 
-werewolf.interact(MainCharacter)
-goblin.interact(MainCharacter)
-skeleton.interact(MainCharacter)
-slime.interact(MainCharacter)
-dragon.interact(MainCharacter)

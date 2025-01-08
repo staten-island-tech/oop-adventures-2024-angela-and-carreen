@@ -1,4 +1,4 @@
-import user
+""" import user
 import monster
 import npcs
 import items
@@ -41,11 +41,11 @@ def intro():
     else:
         print('CHOOSE A VALID CHOICE')
 def forest():
-    print('You enter the forest and encounter a slime')
+    print('You enter the forest and encounter a slime') """
 
 
 
-import json
+""" import json
 with open("./saves.json", "r") as f:
     data = json.load(f)
     data.append()
@@ -54,4 +54,4 @@ with open(new_file, "w") as f:
     json_string = json.dumps(data, indent=4)
     f.write(json_string)
 os.remove("saves.json")
-os.rename(new_file, "saves.json")
+os.rename(new_file, "saves.json") """
