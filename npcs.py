@@ -21,7 +21,6 @@ class StoreClerk(NPC):
                 player.currency -= price
                 self.currency += price
                 self.inventory.remove(self.inventory[item_index - 1])
-                player.inventory.append(item)
                 print(f"{self.name}: Thank you for purchasing {item}! You have {player.currency} gold left.")
             else:
                 print(f"{self.name}:Sorry, you too broke for {item}.")
@@ -54,7 +53,6 @@ class Trader(NPC):
                 player.currency -= price
                 self.currency += price
                 self.inventory.remove(self.inventory[item_index - 1])
-                player.inventory.append(item)
                 print(f"{self.name}: You've traded for {item}. You now have {player.currency} gold.")
             else:
                 print(f"{self.name}: Sorry, you don't have enough gold for {item}.")

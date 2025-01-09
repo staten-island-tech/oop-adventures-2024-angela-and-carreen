@@ -12,21 +12,6 @@ class MainCharacter:
         self.health = health
         self.currency = currency
         self.inventory = []
-    def load_game():
-        if os.path.exists("save.json"):
-            with open("save.json", "r") as save_file:
-                save_data = json.load(save_file)
-                character = MainCharacter(
-                    name=save_data["name"],
-                    character_class=save_data["character_class"],
-                    health=save_data["health"],
-                    currency=save_data["currency"])
-                character.inventory = save_data["inventory"]
-                if save_data["weapon"]:
-                    character.weapon = Weapons(save_data["weapon"], 0, 0, "N/A", "N/A", 0, "N/A")
-                print("Game progress loaded.")
-                return character
-        return None
     def user_input():
         user_name = input("Enter your character's name: ")
         return user_name
@@ -57,18 +42,26 @@ player_character = MainCharacter.create_character (user_name, chosen_class)
 character_data = {"stats": player_character.__dict__,}
 def weapons():
     weapons_list = [
-        Weapons("Sword", 15, 50, "N/A", "N/A", 15, "Common"),
-        Weapons("Shield", 10, 75, "N/A", "N/A", 0, "Common"),
-        Weapons("Bow", 15, 100, "N/A", "N/A", 0, "Common"),
-        Weapons("Arrows", 1, 5, "N/A", "N/A", 5, "Common")]
+        Weapons("Sword", 15, 50, 20, "Common", "N/A", "N/A"),
+        Weapons("Shield", 10, 75, 0, "Common", "N/A", "N/A"),
+        Weapons("Bow", 15, 100, 0, "Common", "N/A", "N/A"),
+        Weapons("Arrows", 1, 5, 10, "Common", "N/A", "N/A"),
+        Weapons("Staff", 10, 100, 5, "Common", "N/A", "N/A")]
     return weapons(weapons_list)
 def generate_random_monster():
     monster_list = [
         Monster("Werewolf", 100, 25, {"werewolf fur", "werewolf claws", "55 gold coins"}),
         Monster("Goblin", 50, 5, {"goblin skin", "wooden shield", "5 gold coins"}),
         Monster("Skeleton", 30, 10, {"bones", "rusty sword", "3 gold coins"}),
-        Monster("Slime", 15, 1, {"1 gold coin"}),
-        Monster("Dragon", 150, 80, {"dragon scales", "dragon tooth", "dragon heart", "100 gold coins"})]
+        Monster("Slime", 15, 1, {"1 gold coin"})]
+    return random.choice(monster_list)
+def generate_cave_monster():
+    monster_list = [
+        Monster("Werewolf", 200, 25, {"werewolf fur", "werewolf claws", "55 gold coins"}),
+        Monster("Goblin", 100, 5, {"goblin skin", "wooden shield", "5 gold coins"}),
+        Monster("Skeleton", 60, 10, {"bones", "rusty sword", "3 gold coins"}),
+        Monster("Slime", 30, 1, {"1 gold coin"}),
+        Monster("Dragon", 300, 99, {"dragon scales", "dragon tooth", "dragon heart", "100 gold coins"})]
     return random.choice(monster_list)
 def intro():
     print(f"\nWelcome, {player_character.name}!\nYou have chosen the {chosen_class} class.")
@@ -89,6 +82,11 @@ def intro():
                     print(f"{player_character.weapon.name} is broken and cannot be used!")
                 if monster.health > 0:
                     monster.attack(player_character)
+                    self.health -= damage
+                    if self.health <= 0:
+                        print(f"{self.name} has fallen in battle!")
+                    else:
+                        print(f"{self.name} now has {self.health} health left")
             elif action == "run":
                 print("You fled from the battle!")
                 break
@@ -111,11 +109,16 @@ def intro():
                         damage = player_character.weapon.damage
                         print(f"{player_character.name} attacks with {player_character.weapon.name} for {damage} damage!")
                         player_character.weapon.durability -= 1
-                        next_monster.take_damage(damage)
+                        monster.take_damage(damage)
                     else:
                         print(f"{player_character.weapon.name} is broken and cannot be used!")
-                    if next_monster.health > 0:
-                        next_monster.attack(player_character)
+                    if monster.health > 0:
+                        monster.attack(player_character)
+                        self.health -= damage
+                        if self.health <= 0:
+                            print(f"{self.name} has fallen in battle!")
+                        else:
+                            print(f"{self.name} now has {self.health} health left")
                 elif action == "run":
                     print("You fled from the battle!")
                     break
@@ -140,14 +143,23 @@ def intro():
     else:
         print('CHOOSE A VALID CHOICE')
 intro()
-def save_game(character):
-    save_data = {
-        "name": character.name,
-        "character_class": character.character_class,
-        "health": character.health,
-        "currency": character.currency,
-        "inventory": character.inventory,
-        "weapon": character.weapon.name if character.weapon else None}
-    with open("save_file.json", "w") as save_file:
-        json.dump(save_data, save_file, indent=4)
-    print("Game progress saved.")
+
+""" def save_game():
+    try:
+        with open("saves.json", 'r') as file:
+            player_data=json.load(file)
+    except FileNotFoundError:
+        player_data={"name": user_name, "health": 100, "inventory": []}
+    with open('saves.json', 'w') as file:
+        json.dump(player_data, file, indent=4) """
+
+
+""" with open("./saves.json", "r") as f:
+    data = json.load(f)
+    data.append()
+new_file = "updated.json"
+with open(new_file, "w") as f:
+    json_string = json.dumps(data, indent=4)
+    f.write(json_string)
+os.remove("saves.json")
+os.rename(new_file, "saves.json") """
