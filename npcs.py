@@ -6,7 +6,6 @@ class NPC:
         self.inventory = []
     def interact(self):
         print(f"{self.name}: Hello, traveler! How can I help you today?")
-
 class StoreClerk(NPC):
     def __init__(self, name, currency, inventory):
         super().__init__(name, currency)
@@ -22,6 +21,7 @@ class StoreClerk(NPC):
                 player.currency -= price
                 self.currency += price
                 self.inventory.remove(self.inventory[item_index - 1])
+                player.inventory.append(item)
                 print(f"{self.name}: Thank you for purchasing {item}! You have {player.currency} gold left.")
             else:
                 print(f"{self.name}:Sorry, you too broke for {item}.")
@@ -39,7 +39,6 @@ class StoreClerk(NPC):
                     self.buy_item(player, choice)
             except ValueError:
                 print("Please enter a valid number.")
-
 class Trader(NPC):
     def __init__(self, name, currency, inventory):
         super().__init__(name, currency)
@@ -55,6 +54,7 @@ class Trader(NPC):
                 player.currency -= price
                 self.currency += price
                 self.inventory.remove(self.inventory[item_index - 1])
+                player.inventory.append(item)
                 print(f"{self.name}: You've traded for {item}. You now have {player.currency} gold.")
             else:
                 print(f"{self.name}: Sorry, you don't have enough gold for {item}.")
@@ -72,7 +72,6 @@ class Trader(NPC):
                     self.trade_item(player, choice)
             except ValueError:
                 print("\nPlease enter a valid number.")
-
 class Innkeeper(NPC):
     def __init__(self, name, currency, room_cost):
         super().__init__(name, currency)
@@ -96,13 +95,6 @@ class Innkeeper(NPC):
                 break
             else:
                 print("Please respond with 'yes' or 'no'.")
-
-""" class Player:
-    def __init__(self, name, currency):
-        self.name = name
-        self.currency = currency
-player = Player("Arthur", 50) """
 store_clerk = StoreClerk("Mia", 50, [('lamp', 5), ('Map', 3), ('sword', 15), ('shield', 10), ('bow', 15), ('arrows', 1)])
-
 trader= Trader("John", 50, [('lamp', 5), ('Map', 3), ('healing_potion', 10), ('exploding_potion', 10), ('invisibility_potion', 10), ('invincibility_potion', 10), ('laxitive', 15)])
 innkeeper = Innkeeper("Alya", 0, 15)

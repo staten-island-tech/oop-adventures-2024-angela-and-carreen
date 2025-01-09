@@ -42,7 +42,6 @@ class Weapons(Items):
         self.rarity=rarity
         self.is_active=False
 
-
 lamp = Items("Lamp", 5, 100, "light", 10)
 Map = Items("Map", 3, 50, "N/A", "N/A")
 Gold_coin = Items("Gold Coin", 1, 1, "N/A", "N/A")
