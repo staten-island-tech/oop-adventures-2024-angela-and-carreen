@@ -46,9 +46,8 @@ class Archer(Character):
     def __str__(self):
         return f"Archer {self.name}: Mana = {self.mana}, Arrows = {self.arrows}, Defense = {self.defense}, Inventory = {self.inventory}"
 class Knight(Character):
-    def __init__(self, name, mana, defense, attacks, inventory):
+    def __init__(self, name, mana, defense, inventory):
         super().__init__(name, mana, defense, inventory)
-        self.attacks = attacks
         self.attack_type = {
             1: {"name": "Slash", "damage": 10, "mana_cost": 0},
             2: {"name": "Charge Attack", "damage": 15, "mana_cost": 10},
@@ -58,7 +57,7 @@ class Knight(Character):
             print(f"{attack_choice} is not a valid attack choice.")
             return
         attack = self.attack_type[attack_choice]
-        if self.attacks <= 0:
+        if self.health <= 0:
             print(f"{self.name} can't attack anymore!")
             return
         if attack["mana_cost"] > 0:
@@ -73,11 +72,10 @@ class Knight(Character):
         target.take_damage(damage)
         self.attacks -= 1
     def __str__(self):
-        return f"Knight {self.name}: Mana = {self.mana}, Defense = {self.defense}, Attacks = {self.attacks}, Inventory = {self.inventory}"
+        return f"Knight {self.name}: Mana = {self.mana}, Defense = {self.defense}, Inventory = {self.inventory}"
 class Mage(Character):
-    def __init__(self, name, mana, defense, attacks, inventory):
+    def __init__(self, name, mana, defense, inventory):
         super().__init__(name, mana, defense, inventory)
-        self.attacks = attacks
         self.attack_type = {
             1: {"name": "Fireball", "damage": 10, "mana cost": 10, "effect": "burn"},
             2: {"name": "Frostbolt", "damage": 10, "mana cost": 10, "effect": "frost"}}
@@ -86,7 +84,7 @@ class Mage(Character):
             print(f"{attack_choice} is not a valid attack choice")
             return
         attack = self.attack_types[attack_choice]
-        if self.attacks > 0:
+        if self.health > 0:
             print(f"{self.name} attacks {target.name} with {attack['name']}")
             damage = attack["damage"]
             target.take_damage(damage)
@@ -106,7 +104,7 @@ class Mage(Character):
         else:
             print(f"{self.name} can't attack any more")
     def __str__(self):
-        return f"mage {self.name}: Mana = {self.mana}, Defense = {self.defense}, Attacks = {self.attacks}, Inventory = {self.inventory}"
+        return f"mage {self.name}: Mana = {self.mana}, Defense = {self.defense}, Inventory = {self.inventory}"
 class Healer(Character):
     def __init__(self, name, mana, defense, inventory):
         super().__init__(name, mana, defense, inventory)
