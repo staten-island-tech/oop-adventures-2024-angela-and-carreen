@@ -53,16 +53,16 @@ player_character = MainCharacter.create_character (user_name, chosen_class)
 character_data = {"stats": player_character.__dict__,}
 def generate_random_monster():
     monster_list = [
-        Monster("Werewolf", 100, 25, {"werewolf fur", "werewolf claws", "55 gold coins"}),
-        Monster("Goblin", 50, 5, {"goblin skin", "wooden shield", "5 gold coins"}),
-        Monster("Skeleton", 30, 10, {"bones", "rusty sword", "3 gold coins"}),
+        Monster("Werewolf", 100, 15, {"werewolf fur", "werewolf claws", "55 gold coins"}),
+        Monster("Goblin", 50, 8, {"goblin skin", "wooden shield", "5 gold coins"}),
+        Monster("Skeleton", 30, 5, {"bones", "rusty sword", "3 gold coins"}),
         Monster("Slime", 15, 1, {"1 gold coin"})]
     return random.choice(monster_list)
 def generate_cave_monster():
     cave_monster_list = [
-        Monster("Werewolf", 200, 25, {"werewolf fur", "werewolf claws", "55 gold coins"}),
-        Monster("Goblin", 100, 5, {"goblin skin", "wooden shield", "5 gold coins"}),
-        Monster("Skeleton", 60, 10, {"bones", "rusty sword", "3 gold coins"}),
+        Monster("Werewolf", 100, 25, {"werewolf fur", "werewolf claws", "55 gold coins"}),
+        Monster("Goblin", 50, 16, {"goblin skin", "wooden shield", "5 gold coins"}),
+        Monster("Skeleton", 30, 10, {"bones", "rusty sword", "3 gold coins"}),
         Monster("Slime", 30, 1, {"1 gold coin"}),
         Monster("Dragon", 300, 99, {"dragon scales", "dragon tooth", "dragon heart", "100 gold coins"})]
     return random.choice(cave_monster_list)
