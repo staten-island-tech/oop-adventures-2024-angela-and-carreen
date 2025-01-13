@@ -7,11 +7,11 @@ import os
 import random
 import time
 class MainCharacter:
-    def __init__(self, name, character_class, health=100, currency=25):
+    def __init__(self, name, character_class, health=100, gold=25):
         self.name = name
         self.character_class = character_class
         self.health = health
-        self.currency = currency
+        self.gold = gold
         self.inventory = []
         self.weapon = None
     def attack(self, monster):
@@ -63,22 +63,22 @@ player_character = MainCharacter.create_character(user_name, chosen_class)
 character_data = {"stats": player_character.__dict__,}
 def generate_random_monster():
     monster_list = [
-        Monster("Werewolf", 100, 15, {"werewolf fur", "werewolf claws", "55 gold coins"}),
-        Monster("Goblin", 50, 8, {"goblin skin", "wooden shield", "5 gold coins"}),
-        Monster("Skeleton", 30, 5, {"bones", "rusty sword", "3 gold coins"}),
-        Monster("Slime", 15, 1, {"1 gold coin"})]
+        Monster("Werewolf", 100, 15, {"werewolf fur", "werewolf claws", "55 gold "}),
+        Monster("Goblin", 50, 8, {"goblin skin", "wooden shield", "5 gold "}),
+        Monster("Skeleton", 30, 5, {"bones", "rusty sword", "3 gold "}),
+        Monster("Slime", 15, 1, {"2 gold coin"})]
     return random.choice(monster_list)
 def generate_cave_monster():
     cave_monster_list = [
-        Monster("Werewolf", 100, 25, {"werewolf fur", "werewolf claws", "55 gold coins"}),
-        Monster("Goblin", 50, 16, {"goblin skin", "wooden shield", "5 gold coins"}),
-        Monster("Skeleton", 30, 10, {"bones", "rusty sword", "3 gold coins"}),
-        Monster("Slime", 30, 1, {"1 gold coin"}),
-        Monster("Dragon", 300, 99, {"dragon scales", "dragon tooth", "dragon heart", "100 gold coins"})]
+        Monster("Werewolf", 100, 25, {"werewolf fur", "werewolf claws", "55 gold"}),
+        Monster("Goblin", 50, 16, {"goblin skin", "wooden shield", "5 gold"}),
+        Monster("Skeleton", 30, 10, {"bones", "rusty sword", "3 gold"}),
+        Monster("Slime", 30, 1, {"2 gold"}),
+        Monster("Dragon", 300, 99, {"dragon scales", "dragon tooth", "dragon heart", "100 gold"})]
     return random.choice(cave_monster_list)
 def intro():
     print(f"\nWelcome, {player_character.name}!\nYou have chosen the {chosen_class} class.")
-    print(f"Your starting stats are:\nHealth: {player_character.health}\nCurrency: {player_character.currency}\nInventory: {player_character.inventory}\n")
+    print(f"Your starting stats are:\nHealth: {player_character.health}\nGold: {player_character.gold}\nInventory: {player_character.inventory}\n")
     while True:
         try:
             choice = int(input("do you want to go to \n1: forest \n2: village?\n"))
@@ -92,21 +92,22 @@ def intro():
                         while monster.health > 0:
                             try:
                                 if isinstance(player_character, Archer):
-                                    print("Choose your arrow type:\n1: Standard\n2: Fire\n3: Poison")
+                                    print("Choose your arrow type:\n1: Standard mana cost:0 \n2: Fire mana cost:7 \n3: Poison mana cost 5")
                                     arrow_choice = int(input("Enter your choice: "))
                                     player_character.attack(monster, arrow_choice)
                                 elif isinstance(player_character, Knight):
-                                    print("Choose your attack type:\n1: Slash\n2: Charge Attack\n3: Power Slash")
+                                    print("Choose your attack type:\n1: Slash mana cost:0 \n2: Charge Attack mana cost:10\n3: Power Slash mana: 15")
                                     attack_choice = int(input("Enter your choice: "))
                                     player_character.attack(monster, attack_choice)
                                 elif isinstance(player_character, Mage):
-                                    print("Choose your spell:\n1: Fireball\n2: Frostbolt")
+                                    print("Choose your spell:\n1: Fireball mana cost 10\n2: Frostbolt mana cost 10")
                                     spell_choice = int(input("Enter your choice: "))
                                     player_character.attack(monster, spell_choice)
                                 elif isinstance(player_character, Healer):
                                     player_character.attack(monster)
+                                print(f'{player_charater.name} attack {monster.name}\n {player_charater.name} has {player_chararer.mana} mana left')
                                 if monster.health > 0:
-                                    monster.attack(player_character)
+                                    monster.attack(player_character) #fix this
                                     player_character.health -= monster.attack_power
                                     if player_character.health <= 0:
                                         print(f"{player_character.name} has fallen in battle!")
@@ -120,10 +121,13 @@ def intro():
                         print("Invalid choice. Try again.")
                 if monster.health <= 0:
                     print(f"You defeated the {monster.name}!\nThe {monster.name} dropped: {', '.join(monster.drops)}\n")
-                    player_character.inventory.extend(monster.drops)
-                    print(f"Your updated inventory: {player_character.inventory}\n")
+                    if dropped_item == 'Gold':
+                        player_character.inventory.extend(monster.drops)
+                        print(f"Your updated inventory: {player_character.inventory}\n")
                 elif player_character.health <= 0:
                     print("You have been defeated!")
+
+
 
                 while player_character.health > 0:
                     next_monster = generate_random_monster()
@@ -169,7 +173,7 @@ def intro():
                             break
 
                     elapsed_time = time.time()-forest_start_time
-                    if elapsed_time > 15:
+                    if elapsed_time > 180:
                         cave_choice = input("Do you want to go into the cave? [yes/no] ").lower()
                         if cave_choice == "yes":
                             cave_monster = generate_cave_monster()

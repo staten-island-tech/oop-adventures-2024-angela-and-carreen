@@ -24,8 +24,8 @@ class Monster:
         else:
             print("No drops available")
 
-werewolf = Monster("Werewolf", 100, 25, {"werewolf fur", "werewolf claws", "55 gold coins"})
-goblin = Monster("Goblin", 50, 5, {"goblin skin", "wooden shield", "5 gold coins"})
-skeleton = Monster("Skeleton", 30, 10, {"bones", "rusty sword", "3 gold coins"})
-slime = Monster("Slime", 15, 1, {"1 gold coin"})
-dragon = Monster("Dragon", 150, 80, {"dragon scales", "dragon tooth", "dragon heart", "100 gold coins"})
+werewolf = Monster("Werewolf", 100, 25, {"werewolf fur", "werewolf claws", "55 gold"})
+goblin = Monster("Goblin", 50, 5, {"goblin skin", "wooden shield", "5 gold"})
+skeleton = Monster("Skeleton", 30, 10, {"bones", "rusty sword", "3 gold"})
+slime = Monster("Slime", 15, 1, {"2 gold"})
+dragon = Monster("Dragon", 150, 80, {"dragon scales", "dragon tooth", "dragon heart", "100 gold"})

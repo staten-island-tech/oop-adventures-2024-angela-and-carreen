@@ -64,7 +64,7 @@ class Knight(Character):
         if attack["mana_cost"] > 0:
             if self.mana >= attack["mana_cost"]:
                 self.mana -= attack["mana_cost"]
-                print(f"{self.name} uses {attack.name} consuming {attack['mana_cost']} mana.")
+                print(f"{self.name} uses {attack['name']} consuming {attack['mana_cost']} mana.")
             else:
                 print(f"{self.name} doesn't have enough mana for {attack['name']}!")
                 return

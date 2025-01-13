@@ -1,14 +1,14 @@
 import items
 class NPC:
-    def __init__(self, name, currency=50):
+    def __init__(self, name, gold=50):
         self.name = name
-        self.currency = currency
+        self.gold = gold
         self.inventory = []
     def interact(self):
         print(f"{self.name}: Hello, traveler! How can I help you today?")
 class StoreClerk(NPC):
-    def __init__(self, name, currency, inventory):
-        super().__init__(name, currency)
+    def __init__(self, name, gold, inventory):
+        super().__init__(name, gold)
         self.inventory = inventory
     def show_inventory(self):
         print(f"\n{self.name}:Welcome to my shop! Here are the items available for sale:")
@@ -17,11 +17,11 @@ class StoreClerk(NPC):
     def buy_item(self, player, item_index):
         if 0 < item_index <= len(self.inventory):
             item, price = self.inventory[item_index - 1]
-            if player.currency >= price:
-                player.currency -= price
-                self.currency += price
+            if player.gold >= price:
+                player.gold -= price
+                self.gold += price
                 self.inventory.remove(self.inventory[item_index - 1])
-                print(f"{self.name}: Thank you for purchasing {item}! You have {player.currency} gold left.")
+                print(f"{self.name}: Thank you for purchasing {item}! You have {player.gold} gold left.")
             else:
                 print(f"{self.name}:Sorry, you too broke for {item}.")
         else:
@@ -39,8 +39,8 @@ class StoreClerk(NPC):
             except ValueError:
                 print("Please enter a valid number.")
 class Trader(NPC):
-    def __init__(self, name, currency, inventory):
-        super().__init__(name, currency)
+    def __init__(self, name, gold, inventory):
+        super().__init__(name, gold)
         self.inventory = inventory
     def show_inventory(self):
         print(f"\n{self.name}: Here are the items I can trade:")
@@ -49,11 +49,11 @@ class Trader(NPC):
     def trade_item(self, player, item_index):
         if 0 < item_index <= len(self.inventory):
             item, price = self.inventory[item_index - 1]
-            if player.currency >= price:
-                player.currency -= price
-                self.currency += price
+            if player.gold >= price:
+                player.gold -= price
+                self.gold += price
                 self.inventory.remove(self.inventory[item_index - 1])
-                print(f"{self.name}: You've traded for {item}. You now have {player.currency} gold.")
+                print(f"{self.name}: You've traded for {item}. You now have {player.gold} gold.")
             else:
                 print(f"{self.name}: Sorry, you don't have enough gold for {item}.")
         else:
@@ -71,14 +71,14 @@ class Trader(NPC):
             except ValueError:
                 print("\nPlease enter a valid number.")
 class Innkeeper(NPC):
-    def __init__(self, name, currency, room_cost):
-        super().__init__(name, currency)
+    def __init__(self, name, gold, room_cost):
+        super().__init__(name, gold)
         self.room_cost = room_cost
     def offer_room(self, player):
         print(f"\n{self.name}: I have rooms available for {self.room_cost} gold.")
-        if player.currency >= self.room_cost:
-            player.currency -= self.room_cost
-            print(f"\n{self.name}: Here's your room. You now have {player.currency} gold left.")
+        if player.gold >= self.room_cost:
+            player.gold -= self.room_cost
+            print(f"\n{self.name}: Here's your room. You now have {player.gold} gold left.")
         else:
             print(f"\n{self.name}: Sorry, you don't have enough gold for a room.")
     def interact(self, player):
