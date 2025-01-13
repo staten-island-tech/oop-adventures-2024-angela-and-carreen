@@ -23,13 +23,6 @@ class Monster:
                 print(f"- {dropped_item}")
         else:
             print("No drops available")
-    def attack(self, player_character):
-        print(f"{self.name} attacks {player_character.name} for {self.attack_power} damage!")
-        player_character.health -= self.attack_power
-        if player_character.health > 0:
-            print(f"{player_character.name} now has {player_character.health} health left.")
-        else:
-            print(f"{player_character.name} has been defeated.")
 
 werewolf = Monster("Werewolf", 100, 25, {"werewolf fur", "werewolf claws", "55 gold coins"})
 goblin = Monster("Goblin", 50, 5, {"goblin skin", "wooden shield", "5 gold coins"})

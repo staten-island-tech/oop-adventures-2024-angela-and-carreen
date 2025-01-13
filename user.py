@@ -124,13 +124,14 @@ def intro():
                     print(f"Your updated inventory: {player_character.inventory}\n")
                 elif player_character.health <= 0:
                     print("You have been defeated!")
+
                 while player_character.health > 0:
                     next_monster = generate_random_monster()
                     while next_monster.health > 0 and player_character.health > 0:
                         print(f"A wild {next_monster.name} appears!")
                         action = input(f"Do you want to [attack] {next_monster.name} or [run]? ").lower()
                         if action == "attack":
-                            while monster.health > 0:
+                            while next_monster.health > 0:
                                 try:
                                     if isinstance(player_character, Archer):
                                         print("Choose your arrow type:\n1: Standard\n2: Fire\n3: Poison")
@@ -165,8 +166,10 @@ def intro():
                             print(f"Your updated inventory: {player_character.inventory}\n")
                         elif player_character.health <= 0:
                             print("You have been defeated!")
+                            break
+
                     elapsed_time = time.time()-forest_start_time
-                    if elapsed_time > 30:
+                    if elapsed_time > 15:
                         cave_choice = input("Do you want to go into the cave? [yes/no] ").lower()
                         if cave_choice == "yes":
                             cave_monster = generate_cave_monster()
@@ -174,14 +177,31 @@ def intro():
                             while cave_monster.health > 0 and player_character.health > 0:
                                 action = input("Do you want to [attack] the monster or [run] (running will take you out of the cave)? ").lower()
                                 if action == "attack":
-                                    player_character.attack(cave_monster)
-                                    if cave_monster.health > 0:
-                                        cave_monster.attack(player_character)
-                                        player_character.health -= cave_monster.attack_power
-                                        if player_character.health <= 0:
-                                            print(f"{player_character.name} has fallen in battle!")
-                                        else:
-                                            print(f"{player_character.name} now has {player_character.health} health left")
+                                    while cave_monster.health > 0:
+                                        try:
+                                            if isinstance(player_character, Archer):
+                                                print("Choose your arrow type:\n1: Standard\n2: Fire\n3: Poison")
+                                                arrow_choice = int(input("Enter your choice: "))
+                                                player_character.attack(cave_monster, arrow_choice)
+                                            elif isinstance(player_character, Knight):
+                                                print("Choose your attack type:\n1: Slash\n2: Charge Attack\n3: Power Slash")
+                                                attack_choice = int(input("Enter your choice: "))
+                                                player_character.attack(cave_monster, attack_choice)
+                                            elif isinstance(player_character, Mage):
+                                                print("Choose your spell:\n1: Fireball\n2: Frostbolt")
+                                                spell_choice = int(input("Enter your choice: "))
+                                                player_character.attack(cave_monster, spell_choice)
+                                            elif isinstance(player_character, Healer):
+                                                player_character.attack(cave_monster)
+                                            if cave_monster.health > 0:
+                                                cave_monster.attack(player_character)
+                                                player_character.health -= cave_monster.attack_power
+                                                if player_character.health <= 0:
+                                                    print(f"{player_character.name} has fallen in battle!")
+                                                else:
+                                                    print(f"{cave_monster.name} had attack {player_character.name} for {cave_monster.attack}\n{player_character.name} now has {player_character.health} health left")
+                                        except ValueError:
+                                            print("Invalid choice. Please enter a number.")
                                 elif action == "run":
                                     print("You fled from the cave!")
                                 else:
@@ -193,10 +213,12 @@ def intro():
                                 print(f"Your updated inventory: {player_character.inventory}")
                             elif player_character.health <= 0:
                                 print("You have been defeated!")
+                                break
                         elif cave_choice == "no":
                             print("You decide not to enter the cave and continue your journey.")
                         else:
                             print("Invalid choice. Please enter 'yes' or 'no'.")
+
             elif choice == 2:
                 print("you enter village...\n do you want to go to the inn or the armory")
                 store=int(input("1: armory \n2: inn\n"))
