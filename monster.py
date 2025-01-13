@@ -1,9 +1,9 @@
 import random
 class Monster:
-    def __init__(self, name, health, attack, drops):
+    def __init__(self, name, health, attack_power, drops):
         self.name = name
         self.health = health
-        self.attack = attack
+        self.attack_power = attack_power
         self.drops = drops
     def take_damage(self, damage):
         self.health -= damage
@@ -23,22 +23,13 @@ class Monster:
                 print(f"- {dropped_item}")
         else:
             print("No drops available")
-    def interact(self, player):
-        while self.health > 0 and player.health > 0:
-            print(f"You are fighting a {self.name}!")
-            action = input("Choose an action: [attack, run]: ").strip().lower()
-            if action == "attack":
-                player.attack(self)
-                if self.health > 0:
-                    print(f"{self.name} attacks you for {self.attack} damage!")
-                    player.take_damage(self.attack)
-            elif action == "run":
-                print("You run away from the fight!")
-                break
-            else:
-                print("Invalid action. Try again.")
-        if player.health <= 0:
-            print("You have been defeated...")
+    def attack(self, player_character):
+        print(f"{self.name} attacks {player_character.name} for {self.attack_power} damage!")
+        player_character.health -= self.attack_power
+        if player_character.health > 0:
+            print(f"{player_character.name} now has {player_character.health} health left.")
+        else:
+            print(f"{player_character.name} has been defeated.")
 
 werewolf = Monster("Werewolf", 100, 25, {"werewolf fur", "werewolf claws", "55 gold coins"})
 goblin = Monster("Goblin", 50, 5, {"goblin skin", "wooden shield", "5 gold coins"})
