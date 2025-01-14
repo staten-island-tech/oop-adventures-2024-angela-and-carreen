@@ -1,5 +1,5 @@
 from classes import Archer, Knight, Mage, Healer
-from monster import Monster
+from monster import Monster, Next_monster, Cave_monster
 from items import Weapons
 from npcs import StoreClerk, Innkeeper, Trader
 import json
@@ -42,20 +42,20 @@ class MainCharacter:
                 print("Invalid input. Please enter a number.")
     def create_character(name, character_class):
         character_mapping = {
-            "Archer": Archer(name, mana=50, defense=5, arrows=10, inventory=["Lamp", "Map", "Arrow", "Bow"]),
-            "Knight": Knight(name, mana=30, defense=10, inventory=["Lamp", "Map", "Sword", "Shield"]),
-            "Mage": Mage(name, mana=70, defense=3, inventory=["Lamp", "Map", "staff"]),
-            "Healer": Healer(name, mana=60, defense=4, inventory=["Lamp", "Map", "Dagger"])}
+            "Archer": Archer(name, mana=100, defense=5, arrows=10, inventory=["Lamp", "Map", "Arrow", "Bow"]),
+            "Knight": Knight(name, mana=60, defense=10, inventory=["Lamp", "Map", "Sword", "Shield"]),
+            "Mage": Mage(name, mana=140, defense=3, inventory=["Lamp", "Map", "staff"]),
+            "Healer": Healer(name, mana=120, defense=4, inventory=["Lamp", "Map", "Dagger"])}
         player = character_mapping.get(character_class, None)
         if player:
             if character_class == "Archer":
-                player.weapon = Weapons("Bow", price=15, durability=100, damage=10, rarity="Common", effect="N/A", effect_duration="N/A")
+                player.weapon = Weapons("Bow", price=15, durability=100, damage=15, rarity="Common", effect="N/A", effect_duration="N/A")
             elif character_class == "Knight":
-                player.weapon = Weapons("Sword", price=15, durability=50, damage=20, rarity="Common", effect="N/A", effect_duration="N/A")
+                player.weapon = Weapons("Sword", price=20, durability=50, damage=20, rarity="Common", effect="N/A", effect_duration="N/A")
             elif character_class == "Mage":
-                player.weapon = Weapons("Staff", price=10, durability=50, damage=5, rarity="Common", effect="N/A", effect_duration="N/A")
+                player.weapon = Weapons("Staff", price=10, durability=50, damage=10, rarity="Common", effect="N/A", effect_duration="N/A")
             elif character_class == "Healer":
-                player.weapon = Weapons("Dagger", price=5, durability=25, damage=3, rarity="Common", effect="N/A", effect_duration="N/A")
+                player.weapon = Weapons("Dagger", price=5, durability=25, damage=5, rarity="Common", effect="N/A", effect_duration="N/A")
         return player
 user_name = MainCharacter.user_input()
 chosen_class = MainCharacter.choosing_character()
@@ -63,18 +63,24 @@ player_character = MainCharacter.create_character(user_name, chosen_class)
 character_data = {"stats": player_character.__dict__,}
 def generate_random_monster():
     monster_list = [
-        Monster("Werewolf", 100, 15, {"werewolf fur", "werewolf claws", "55 gold "}),
-        Monster("Goblin", 50, 8, {"goblin skin", "wooden shield", "5 gold "}),
-        Monster("Skeleton", 30, 5, {"bones", "rusty sword", "3 gold "}),
-        Monster("Slime", 15, 1, {"2 gold coin"})]
+        Next_monster("Slime", 15, 1, {"2 gold"}),
+        Next_monster("Werewolf", 100, 15, {"werewolf fur", "werewolf claws", "55 gold"}),
+        Next_monster("Goblin", 50, 8, {"goblin skin", "wooden shield", "5 gold"}),
+        Next_monster("Skeleton", 30, 5, {"bones", "rusty sword", "3 gold"}),
+        Next_monster("Orc", 80, 12, {"orc skin", "orc axe", "15 gold"}),
+        Next_monster("Troll", 120, 10, {"troll skin", "troll club", "30 gold"})]
     return random.choice(monster_list)
 def generate_cave_monster():
     cave_monster_list = [
-        Monster("Werewolf", 100, 25, {"werewolf fur", "werewolf claws", "55 gold"}),
-        Monster("Goblin", 50, 16, {"goblin skin", "wooden shield", "5 gold"}),
-        Monster("Skeleton", 30, 10, {"bones", "rusty sword", "3 gold"}),
-        Monster("Slime", 30, 1, {"2 gold"}),
-        Monster("Dragon", 300, 99, {"dragon scales", "dragon tooth", "dragon heart", "100 gold"})]
+        Cave_monster("Bat", 10, 2, {"bat wing", "1 gold"}),
+        Cave_monster("Slime", 30, 1, {"2 gold"}),
+        Cave_monster("Werewolf", 100, 25, {"werewolf fur", "werewolf claws", "55 gold"}),
+        Cave_monster("Goblin", 50, 15, {"goblin skin", "wooden shield", "5 gold"}),
+        Cave_monster("Skeleton", 30, 10, {"bones", "rusty sword", "3 gold"}),
+        Cave_monster("Orc", 80, 25, {"orc skin", "orc axe", "15 gold"}),
+        Cave_monster("Troll", 120, 20, {"troll skin", "troll club", "30 gold"}),
+        Cave_monster("Spider", 20, 5, {"spider silk", "spider venom", "2 gold"}),
+        Cave_monster("Dragon", 300, 99, {"dragon scales", "dragon tooth", "dragon heart", "100 gold"})]
     return random.choice(cave_monster_list)
 def intro():
     print(f"\nWelcome, {player_character.name}!\nYou have chosen the {chosen_class} class.")
@@ -91,26 +97,32 @@ def intro():
                     if action == "attack":
                         while monster.health > 0:
                             try:
+                                print(f'you have {player_character.mana} mana')
                                 if isinstance(player_character, Archer):
+                                    print("Choose your arrow type:\n1: Standard\n2: Fire\n3: Poison")
                                     print("Choose your arrow type:\n1: Standard mana cost:0 \n2: Fire mana cost:7 \n3: Poison mana cost 5")
                                     arrow_choice = int(input("Enter your choice: "))
                                     player_character.attack(monster, arrow_choice)
                                 elif isinstance(player_character, Knight):
+                                    print("Choose your attack type:\n1: Slash\n2: Charge Attack\n3: Power Slash")
                                     print("Choose your attack type:\n1: Slash mana cost:0 \n2: Charge Attack mana cost:10\n3: Power Slash mana: 15")
                                     attack_choice = int(input("Enter your choice: "))
                                     player_character.attack(monster, attack_choice)
                                 elif isinstance(player_character, Mage):
+                                    print("Choose your spell:\n1: Fireball\n2: Frostbolt")
                                     print("Choose your spell:\n1: Fireball mana cost 10\n2: Frostbolt mana cost 10")
                                     spell_choice = int(input("Enter your choice: "))
                                     player_character.attack(monster, spell_choice)
                                 elif isinstance(player_character, Healer):
                                     player_character.attack(monster)
-                                print(f'{player_charater.name} attack {monster.name}\n {player_charater.name} has {player_chararer.mana} mana left')
+                                print(f'{player_character.name} attack {monster.name}\n {player_character.name} has {player_character.mana} mana left')
                                 if monster.health > 0:
-                                    monster.attack(player_character) #fix this
-                                    player_character.health -= monster.attack_power
+                                    attacks=monster.attack
+                                    player_character.health -= attacks
+                                    print(f"{monster.name} attacks {player_character} for {attacks} damage")
                                     if player_character.health <= 0:
                                         print(f"{player_character.name} has fallen in battle!")
+                                        break
                                     else:
                                         print(f"{monster.name} had attack {player_character.name} for {monster.attack}\n{player_character.name} now has {player_character.health} health left")
                             except ValueError:
@@ -121,41 +133,45 @@ def intro():
                         print("Invalid choice. Try again.")
                 if monster.health <= 0:
                     print(f"You defeated the {monster.name}!\nThe {monster.name} dropped: {', '.join(monster.drops)}\n")
-                    if dropped_item == 'Gold':
-                        player_character.inventory.extend(monster.drops)
-                        print(f"Your updated inventory: {player_character.inventory}\n")
+                    player_character.inventory.extend(monster.drops)
+                    print(f"Your updated inventory: {player_character.inventory}")
                 elif player_character.health <= 0:
                     print("You have been defeated!")
-
-
+                    break
 
                 while player_character.health > 0:
                     next_monster = generate_random_monster()
                     while next_monster.health > 0 and player_character.health > 0:
-                        print(f"A wild {next_monster.name} appears!")
+                        print(f"A wild {next_monster.name} appears!\n{next_monster.name} has {next_monster.health} health.")
                         action = input(f"Do you want to [attack] {next_monster.name} or [run]? ").lower()
                         if action == "attack":
                             while next_monster.health > 0:
                                 try:
+                                    print(f'you have {player_character.mana} mana')
                                     if isinstance(player_character, Archer):
                                         print("Choose your arrow type:\n1: Standard\n2: Fire\n3: Poison")
+                                        print("Choose your arrow type:\n1: Standard mana cost:0 \n2: Fire mana cost:7 \n3: Poison mana cost 5")
                                         arrow_choice = int(input("Enter your choice: "))
-                                        player_character.attack(next_monster, arrow_choice)
+                                        player_character.attack(monster, arrow_choice)
                                     elif isinstance(player_character, Knight):
                                         print("Choose your attack type:\n1: Slash\n2: Charge Attack\n3: Power Slash")
+                                        print("Choose your attack type:\n1: Slash mana cost:0 \n2: Charge Attack mana cost:10\n3: Power Slash mana: 15")
                                         attack_choice = int(input("Enter your choice: "))
-                                        player_character.attack(next_monster, attack_choice)
+                                        player_character.attack(monster, attack_choice)
                                     elif isinstance(player_character, Mage):
                                         print("Choose your spell:\n1: Fireball\n2: Frostbolt")
+                                        print("Choose your spell:\n1: Fireball mana cost 10\n2: Frostbolt mana cost 10")
                                         spell_choice = int(input("Enter your choice: "))
-                                        player_character.attack(next_monster, spell_choice)
+                                        player_character.attack(monster, spell_choice)
                                     elif isinstance(player_character, Healer):
                                         player_character.attack(next_monster)
                                     if next_monster.health > 0:
-                                        next_monster.attack(player_character)
-                                        player_character.health -= next_monster.attack_power
+                                        attack2=next_monster.attack
+                                        player_character.health -= attack2
+                                        print(f"{next_monster.name} attacks {player_character.name} for {attack2} damage")
                                         if player_character.health <= 0:
                                             print(f"{player_character.name} has fallen in battle!")
+                                            break
                                         else:
                                             print(f"{next_monster.name} had attack {player_character.name} for {next_monster.attack}\n{player_character.name} now has {player_character.health} health left")
                                 except ValueError:
@@ -172,56 +188,63 @@ def intro():
                             print("You have been defeated!")
                             break
 
-                    elapsed_time = time.time()-forest_start_time
-                    if elapsed_time > 180:
-                        cave_choice = input("Do you want to go into the cave? [yes/no] ").lower()
-                        if cave_choice == "yes":
-                            cave_monster = generate_cave_monster()
-                            print(f"A {cave_monster.name} appears in the cave!")
-                            while cave_monster.health > 0 and player_character.health > 0:
-                                action = input("Do you want to [attack] the monster or [run] (running will take you out of the cave)? ").lower()
-                                if action == "attack":
-                                    while cave_monster.health > 0:
-                                        try:
-                                            if isinstance(player_character, Archer):
-                                                print("Choose your arrow type:\n1: Standard\n2: Fire\n3: Poison")
-                                                arrow_choice = int(input("Enter your choice: "))
-                                                player_character.attack(cave_monster, arrow_choice)
-                                            elif isinstance(player_character, Knight):
-                                                print("Choose your attack type:\n1: Slash\n2: Charge Attack\n3: Power Slash")
-                                                attack_choice = int(input("Enter your choice: "))
-                                                player_character.attack(cave_monster, attack_choice)
-                                            elif isinstance(player_character, Mage):
-                                                print("Choose your spell:\n1: Fireball\n2: Frostbolt")
-                                                spell_choice = int(input("Enter your choice: "))
-                                                player_character.attack(cave_monster, spell_choice)
-                                            elif isinstance(player_character, Healer):
-                                                player_character.attack(cave_monster)
-                                            if cave_monster.health > 0:
-                                                cave_monster.attack(player_character)
-                                                player_character.health -= cave_monster.attack_power
-                                                if player_character.health <= 0:
-                                                    print(f"{player_character.name} has fallen in battle!")
-                                                else:
-                                                    print(f"{cave_monster.name} had attack {player_character.name} for {cave_monster.attack}\n{player_character.name} now has {player_character.health} health left")
-                                        except ValueError:
-                                            print("Invalid choice. Please enter a number.")
-                                elif action == "run":
-                                    print("You fled from the cave!")
-                                else:
-                                    print("Invalid choice. Try again.")
-                            if cave_monster.health <= 0:
-                                print(f"You defeated the {cave_monster.name}!")
-                                print(f"The {cave_monster.name} dropped: {', '.join(cave_monster.drops)}")
-                                player_character.inventory.extend(cave_monster.drops)
-                                print(f"Your updated inventory: {player_character.inventory}")
-                            elif player_character.health <= 0:
-                                print("You have been defeated!")
-                                break
-                        elif cave_choice == "no":
-                            print("You decide not to enter the cave and continue your journey.")
-                        else:
-                            print("Invalid choice. Please enter 'yes' or 'no'.")
+
+                elapsed_time = time.time()-forest_start_time
+                if elapsed_time > 30:
+                    cave_choice = input("Do you want to go into the cave? [yes/no] ").lower()
+                    if cave_choice == "yes":
+                        cave_monster = generate_cave_monster()
+                        print(f"A {cave_monster.name} appears in the cave!\n{cave_monster.name} has {cave_monster.health} health.")
+                        while cave_monster.health > 0 and player_character.health > 0:
+                            action = input("Do you want to [attack] the monster or [run] (running will take you out of the cave)? ").lower()
+                            if action == "attack":
+                                while cave_monster.health > 0:
+                                    try:
+                                        print(f'you have {player_character.mana} mana')
+                                        if isinstance(player_character, Archer):
+                                            print("Choose your arrow type:\n1: Standard\n2: Fire\n3: Poison")
+                                            print("Choose your arrow type:\n1: Standard mana cost:0 \n2: Fire mana cost:7 \n3: Poison mana cost 5")
+                                            arrow_choice = int(input("Enter your choice: "))
+                                            player_character.attack(monster, arrow_choice)
+                                        elif isinstance(player_character, Knight):
+                                            print("Choose your attack type:\n1: Slash\n2: Charge Attack\n3: Power Slash")
+                                            print("Choose your attack type:\n1: Slash mana cost:0 \n2: Charge Attack mana cost:10\n3: Power Slash mana: 15")
+                                            attack_choice = int(input("Enter your choice: "))
+                                            player_character.attack(monster, attack_choice)
+                                        elif isinstance(player_character, Mage):
+                                            print("Choose your spell:\n1: Fireball\n2: Frostbolt")
+                                            print("Choose your spell:\n1: Fireball mana cost 10\n2: Frostbolt mana cost 10")
+                                            spell_choice = int(input("Enter your choice: "))
+                                            player_character.attack(monster, spell_choice)
+                                        elif isinstance(player_character, Healer):
+                                            player_character.attack(cave_monster)
+                                        if cave_monster.health > 0:
+                                            cave_attack=cave_monster.attack
+                                            player_character.health -= cave_attack
+                                            print(f"{cave_monster.name} attacks {player_character} for {cave_attack} damage")
+                                            if player_character.health <= 0:
+                                                print(f"{player_character.name} has fallen in battle!")
+                                                break
+                                            else:
+                                                print(f"{cave_monster.name} had attack {player_character.name} for {cave_monster.attack}\n{player_character.name} now has {player_character.health} health left")
+                                    except ValueError:
+                                        print("Invalid choice. Please enter a number.")
+                            elif action == "run":
+                                print("You fled from the cave!")
+                            else:
+                                print("Invalid choice. Try again.")
+                        if cave_monster.health <= 0:
+                            print(f"You defeated the {cave_monster.name}!")
+                            print(f"The {cave_monster.name} dropped: {', '.join(cave_monster.drops)}")
+                            player_character.inventory.extend(cave_monster.drops)
+                            print(f"Your updated inventory: {player_character.inventory}")
+                        elif player_character.health <= 0:
+                            print("You have been defeated!")
+                            break
+                    elif cave_choice == "no":
+                        print("You decide not to enter the cave and continue your journey.")
+                    else:
+                        print("Invalid choice. Please enter 'yes' or 'no'.")
 
             elif choice == 2:
                 print("you enter village...\n do you want to go to the inn or the armory")

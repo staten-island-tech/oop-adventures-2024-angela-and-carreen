@@ -4,7 +4,7 @@ class Character:
         self.mana = mana
         self.defense = defense
         self.health = 100
-        self.currency = 25
+        self.gold = 25
         self.inventory = inventory
 
 class Archer(Character):
