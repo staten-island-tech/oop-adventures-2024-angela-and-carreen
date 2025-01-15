@@ -84,7 +84,7 @@ class Innkeeper(NPC):
     def interact(self, player):
         print(f"\n{self.name}: Welcome to my inn!")
         while True:
-            choice = input(f"Would you like to rent a room for {self.room_cost} gold? (yes/no): ").lower()
+            choice = input(f"Would you like to rent a room for {self.room_cost} gold? \nThis will save the game\n(yes/no): ").lower()
             if choice == "yes":
                 self.offer_room(player)
                 break
